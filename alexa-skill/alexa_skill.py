@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_ask import Ask, statement, request
+from flask_ask import Ask, statement
 import requests
 
 app = Flask(__name__)
@@ -8,9 +8,10 @@ ask = Ask(app, '/')
 @ask.intent('GetCardCountIntent')
 def get_card_count():
 	# Send a GET request to Flask backend to get card count and optimized bet
-	response = requests.get('http://<your-flask-backend-url>/alexa_card_info', params={
-		'card_sequence': 'Ace of Spades, 5 of Diamonds'
-	})
+	response = requests.get('https://loose-pandas-sneeze.loca.lt/alexa_card_info',
+		params={
+			'card_sequence': 'Ace of Spades, 5 of Diamonds'
+		})
 
 	if (response.status_code == 200):
 		data = response.json()
@@ -22,6 +23,8 @@ def get_card_count():
 			'token': 'card-count-token',
 			'document': apl_document
 		})
+	else:
+		 return statement("There was an error retrieving the data.")
 
 if (__name__ == '__main__'):
-	app.run(debug=True, port=3000)
+	app.run(debug=True, port=5024)

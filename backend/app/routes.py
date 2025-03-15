@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify
-from app import run
 # from app.ai_predictor import
 
 app = Flask(__name__)
@@ -42,6 +41,7 @@ def process_cards():
 	send_to_alexa(apl_document)
 
 	return jsonify({
+		'card_sequence': card_sequence,
 		'predicted_count': predicted_count,
 		'optimized_bet': optimized_bet,
 		'apl_document': apl_document
@@ -51,5 +51,6 @@ def send_to_alexa(apl_document):
 	# For testing, this function would be a placeholder to simulate sending APL to Alexa
 	print("Sending APL document to Alexa:", apl_document)
 
-# Run the Flask Server
-run()
+# Run Flask data fetching server
+if __name__ == '__main__':
+	app.run(debug=True, host='0.0.0.0', port=5025)
