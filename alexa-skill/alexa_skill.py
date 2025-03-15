@@ -12,10 +12,8 @@ def get_card_count():
 		'card_sequence': 'Ace of Spades, 5 of Diamonds'
 	})
 
-	if response.status_code == 200:
+	if (response.status_code == 200):
 		data = response.json()
-		predicted_count = data['predicted_count']
-		optimized_bet = data['optimized_bet']
 		apl_document = data['apl_document']
 
 		# Return the result with APL rendering directive
@@ -25,5 +23,5 @@ def get_card_count():
 			'document': apl_document
 		})
 
-if __name__ == '__main__':
+if (__name__ == '__main__'):
 	app.run(debug=True, port=3000)
